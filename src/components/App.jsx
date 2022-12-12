@@ -14,12 +14,18 @@ export class App extends Component {
     event.preventDefault();
 
     this.setState(prevState => {
-      return { contacts: [...prevState.contacts, this.state.name] };
+      return {
+        contacts: [
+          ...prevState.contacts,
+          { name: this.state.name, id: nanoid() },
+        ],
+      };
     });
     this.setState({ name: '' });
   };
 
   render() {
+    console.log(this.state);
     return (
       <form action="" onSubmit={this.renderMarcup}>
         <label htmlFor="">
@@ -34,10 +40,20 @@ export class App extends Component {
             onChange={this.getInputValue}
           />
         </label>
+        <label htmlFor="">
+          Number
+          <input
+            type="tel"
+            name="number"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+          />
+        </label>
         <button type="submit">Add Contact</button>
         <ul>
           {this.state.contacts.map(contact => (
-            <li>{this.state.contacts}</li>
+            <li key={contact.id}>{contact.name}</li>
           ))}
         </ul>
       </form>
