@@ -5,11 +5,14 @@ export class App extends Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
+    filter: '',
   };
 
   getInputValue = event => {
-    this.setState({ name: event.currentTarget.value });
+    this.setState({ [event.currentTarget.name]: event.currentTarget.value });
   };
+
   renderMarcup = event => {
     event.preventDefault();
 
@@ -17,18 +20,29 @@ export class App extends Component {
       return {
         contacts: [
           ...prevState.contacts,
-          { name: this.state.name, id: nanoid() },
+          {
+            name: this.state.name,
+            id: nanoid(),
+            number: this.state.number,
+          },
         ],
       };
     });
     this.setState({ name: '' });
+    this.setState({ number: '' });
+  };
+  getInputValueFilter = event => {
+    this.setState({ filter: event.currentTarget.value });
   };
 
   render() {
-    console.log(this.state);
+    const filterContacts = this.state.contacts.filter(value =>
+      value.name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+
     return (
       <form action="" onSubmit={this.renderMarcup}>
-        <label htmlFor="">
+        <label>
           Name
           <input
             type="text"
@@ -40,7 +54,7 @@ export class App extends Component {
             onChange={this.getInputValue}
           />
         </label>
-        <label htmlFor="">
+        <label>
           Number
           <input
             type="tel"
@@ -48,12 +62,25 @@ export class App extends Component {
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
+            value={this.state.number}
+            onChange={this.getInputValue}
           />
         </label>
         <button type="submit">Add Contact</button>
+        <label>
+          Find contacts by name
+          <input
+            type="text"
+            name="filter"
+            value={this.state.filter}
+            onChange={this.getInputValueFilter}
+          />
+        </label>
         <ul>
-          {this.state.contacts.map(contact => (
-            <li key={contact.id}>{contact.name}</li>
+          {filterContacts.map(contact => (
+            <li key={contact.id}>
+              {contact.name}: {contact.number}
+            </li>
           ))}
         </ul>
       </form>
