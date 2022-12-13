@@ -6,8 +6,6 @@ export const theme = {
     primary: ' #70727A  ', //
     secondary: '#D4D7DD  ', //
     accent: '#C5DFDF', //
-    statusRed: '#FD0B00', //
-    statusGreen: '#0ACE1A',
   },
   space: [0, 2, 4, 8, 16, 32, 64, 128, 256],
   fonts: {
@@ -42,7 +40,7 @@ export const theme = {
     round: '50%',
   },
   shadows: {
-    text: '6px 3px #97BDC1  ',
+    text: '3px 2px #97BDC1  ',
     box: 'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
   },
 };
