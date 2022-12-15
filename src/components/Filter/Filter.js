@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { LabelFilter, InputFilter } from './Filter.styled';
 
 export class Filter extends Component {
@@ -16,3 +18,8 @@ export class Filter extends Component {
     );
   }
 }
+
+Filter.propTypes = {
+  onFilterValue: PropTypes.string.isRequired,
+  onGetInputValue: PropTypes.func.isRequired,
+};

@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Box } from 'components/Box';
+
 import { Input, Label, BtnForm } from './Form. styled';
 
 export class ContactForm extends Component {
